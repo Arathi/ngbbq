@@ -40,7 +40,9 @@
 
 $route['default_controller'] = "index";
 $route['404_override'] = '';
-
+$route['wall'] = 'index/index/1';
+$route['wall/(:any)'] = 'index/index/$1';
+$route['commit'] = 'index/commit';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
