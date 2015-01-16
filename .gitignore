@@ -1,1 +1,3 @@
 .idea
+application/third_party/smarty/cache/
+application/views/compiled/
