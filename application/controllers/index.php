@@ -22,16 +22,22 @@ class Index extends CI_Controller {
     public function index($page = 1) {
         $this->css_url_prefix = base_url(APPPATH.'CSS');
         $this->image_url_prefix = base_url(APPPATH.'image');
+        date_default_timezone_set("Asia/Shanghai");
+        //TODO 检查记录总数，计算总页数
+        $confessions_amount = $this->confession_model->get_confessions_amount();
+        $page_max = $confessions_amount / CONFESSIONS_PER_PAGE;
         $prep_page = $page - 1;
         $next_page = $page + 1;
         $start_at = ($page - 1) * CONFESSIONS_PER_PAGE;
         $confessions = $this->confession_model->get_confessions($start_at, CONFESSIONS_PER_PAGE);
         $confessions_prepared = array();
         foreach ($confessions as $confession){
-            $confession['post_time_str'] = date('Y-m-d h:i:s a', $confession['post_time']);
+            $confession['post_time_str'] = date('Y年m月d日 H:i:s', $confession['post_time']);
             $confessions_prepared[] = $confession;
         }
         //TODO 如果上一页或者下一页不存在，将无法点击
+        $disable_prep_page = $prep_page<=0;
+        $disable_next_page = $next_page>$page_max;
         $tpl_data = array(
             'confessions' => $confessions_prepared,
             'page' => $page,
@@ -39,6 +45,10 @@ class Index extends CI_Controller {
             'image_url_prefix' => $this->image_url_prefix,
             'prep_page_url' => site_url('wall/'.$prep_page),
             'next_page_url' => site_url('wall/'.$next_page),
+            //'prep_page_disabled' => $disable_prep_page?'disabled':'',
+            //'next_page_disabled' => $disable_next_page?'disabled':'',
+            'prep_page_disabled' => $disable_prep_page,
+            'next_page_disabled' => $disable_next_page,
             'commit_url' => site_url('commit'),
         );
         $this->smarty->assign($tpl_data);
@@ -54,12 +64,13 @@ class Index extends CI_Controller {
         $contact = $this->input->post('contact');
         $email = $this->input->post('email');
         $content = $this->input->post('txt');
-        //TODO 获取IP地址
+        //获取IP地址
         $post_ip = $this->input->ip_address();
         $post_time = time();
         if ($this->input->post('submit')!=NULL && $nick_name!='' && $content!=''){
-            //TODO 提交数据
+            //提交数据
             $this->confession_model->add_confession($nick_name, $real_name, $contact, $post_time, $content, $post_ip);
+            //TODO 添加到邮件发送队列
             //重定向到首页去
             redirect(site_url('wall'));
         }

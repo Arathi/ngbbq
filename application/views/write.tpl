@@ -1,29 +1,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>表白墙--写下自己的话语</title>
-    <link rel="stylesheet" type="text/css" href="CSS/head.css" />
-    {literal}
-    <script type="text/javascript">
-        function verify(thisform)
-        {
-            with(thisform)
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>表白墙--写下自己的话语</title>
+        <link rel="stylesheet" type="text/css" href="{$css_url_prefix}/head.css" />
+        <link rel="shortcut icon" href="{$image_url_prefix}/favicon.png" >
+        {literal}
+        <script type="text/javascript">
+            function verify(thisform)
             {
-                if (n_name.value==""||n_name.value==null)
+                with(thisform)
                 {
-                    alert("骚年，你的昵称不能为空~~");
-                    return false;
-                }
-                if (txt.value==""||txt.value==null)
-                {
-                    alert("骚年，你怎么能什么也说呢~~");
-                    return false;
+                    if (n_name.value==""||n_name.value==null)
+                    {
+                        alert("骚年，你的昵称不能为空~~");
+                        return false;
+                    }
+                    if (txt.value==""||txt.value==null)
+                    {
+                        alert("骚年，你怎么能什么也说呢~~");
+                        return false;
+                    }
                 }
             }
-        }
-    </script>
-    {/literal}
+        </script>
+        {/literal}
     </head>
 
     <body>

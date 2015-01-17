@@ -22,6 +22,10 @@ class Confession_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_confessions_amount(){
+        return $this->db->count_all_results(CONFESSION_TABLE);
+    }
+
     public function add_confession($nick_name, $real_name, $contact, $post_time, $content, $post_ip)
     {
         //获取当前最大的conf_id
