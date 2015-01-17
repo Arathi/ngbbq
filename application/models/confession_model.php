@@ -31,7 +31,7 @@ class Confession_model extends CI_Model {
         $query = $this->db->get();
         $result = $query->row_array();
         if (count($result)>0){
-            $max_conf_id = $result['max_user_id'];
+            $max_conf_id = $result['max_conf_id'];
         }
         //插入到CONFESSION表
         $confession_data = array(
