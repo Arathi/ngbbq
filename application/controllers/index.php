@@ -14,6 +14,7 @@ class Index extends CI_Controller {
         parent::__construct();
         $this->load->library('smarty');
         $this->load->helper('url');
+        $this->load->model('confession_model');
     }
 
     public function index($page = 1) {
@@ -41,9 +42,13 @@ class Index extends CI_Controller {
         $real_name = $this->input->post('name');
         $contact = $this->input->post('contact');
         $email = $this->input->post('email');
-        $text = $this->input->post('txt');
-        if ($this->input->post('submit')!=NULL && $nick_name!='' && $text!=''){
+        $content = $this->input->post('txt');
+        //TODO 获取IP地址
+        $post_ip = '127.0.0.1';
+        $post_time = time();
+        if ($this->input->post('submit')!=NULL && $nick_name!='' && $content!=''){
             //TODO 提交数据
+            $this->confession_model->add_confession($nick_name, $real_name, $contact, $post_time, $content, $post_ip);
             //重定向到首页去
             redirect(site_url('wall'));
         }
